@@ -1,9 +1,9 @@
-# Public Transport Ticketing System
-Ticketing system for a Public Transport Network 
+# Qr Ticketing System
+Ticketing system for a museum 
 
 ## Introduction
 
-This is a Ticketing system for a Public Transport Network, in which front end (client side) is developed using React JS and back end (server side) is developed using Node JS and Express JS. This web application use MongoDB as the database, which is a cross-platform document-oriented database.
+This is a Ticketing system for a Musuem and heritage structure, in which front end (client side) is developed using React JS and back end (server side) is developed using Node JS and Express JS. This web application use MongoDB as the database, which is a cross-platform document-oriented database.
 
 Users can register on the system. A verification email will be sent to the passenger's email. he needs to confirm it before login to the system. After registration, a passenger can log in to the system using email and password otherwise he can use social login. Admin can also login to the system using the same login by inputting the email and password provided by the main admin.
 
