@@ -1,6 +1,6 @@
-use musuems;
+use museums;
 
-db.Musuem_Locations.insert({name:"Bangalore",location:[{name:"Badulla", ticket_cost:0},
+db.museum_Locations.insert({name:"Bangalore",location:[{name:"Badulla", ticket_cost:0},
 {name:"Ramnagar", ticket_cost:20},
 {name:"Isha Loop (Tunnel No. 42)", ticket_cost:40},
 {name:"Deonnagar", ticket_cost:60},
@@ -28,7 +28,7 @@ db.Musuem_Locations.insert({name:"Bangalore",location:[{name:"Badulla", ticket_c
 {name:"Maradonna Road", ticket_cost:490},
 {name:"Colombo Fort", ticket_cost:500}]});
 
-db.Musuem_Locations.insert({name:"matale-line",location:[{name:"Matale", ticket_cost:0},
+db.museum_Locations.insert({name:"matale-line",location:[{name:"Matale", ticket_cost:0},
 {name:"Talkotor Road", ticket_cost:20},
 {name:"Kohombiliwala", ticket_cost:40},
 {name:"Elwala", ticket_cost:80},
@@ -41,7 +41,7 @@ db.Musuem_Locations.insert({name:"matale-line",location:[{name:"Matale", ticket_
 {name:"Asgiriya", ticket_cost:220},
 {name:"Kandy", ticket_cost:240}]});
 
-db.Musuem_Locations.insert({name:"Tamil-Nadu",location:[{name:"Noor Nagar", ticket_cost:0},
+db.museum_Locations.insert({name:"Tamil-Nadu",location:[{name:"Noor Nagar", ticket_cost:0},
 {name:"Puttalam", ticket_cost:20},
 {name:"Palavi", ticket_cost:60},
 {name:"Mundal", ticket_cost:80},
@@ -57,15 +57,15 @@ db.Musuem_Locations.insert({name:"Tamil-Nadu",location:[{name:"Noor Nagar", tick
 
 
 
-db.trains.insert({name:"Udarata Menike", location:"MG", classes:[{name:"1st class", seats:30}, {name:"2nd class", seats:100}, {name:"3rd class", seats:150}]});
-db.trains.insert({name:"Podi Menike", location:"MG", classes:[{name:"1st class", seats:20}, {name:"2nd class", seats:100}, {name:"3rd class", seats:200}]});
-db.trains.insert({name:"Tikiri Menike", location:"MG", classes:[{name:"1st class", seats:24}, {name:"2nd class", seats:432}, {name:"3rd class", seats:300}]});
-db.trains.insert({name:"Senkadagala Menike", location:"MG, classes:[{name:"1st class", seats:67}, {name:"2nd class", seats:100}, {name:"3rd class", seats:150}]"});
-db.trains.insert({name:"Colombo - Badulla Night Mail Train", location:"MG", classes:[{name:"1st class", seats:70}, {name:"2nd class", seats:100}, {name:"3rd class", seats:150}]});
-db.trains.insert({name:"Muthu Kumari", location:"Tamil-Nadu", classes:[{name:"1st class", seats:45}, {name:"2nd class", seats:300}, {name:"3rd class", seats:150}]});
-db.trains.insert({name:"Bangadeniya", location:"Tamil-Nadu", classes:[{name:"1st class", seats:65}, {name:"2nd class", seats:100}, {name:"3rd class", seats:150}]});
-db.trains.insert({name:"Express (A)", location:"matale-line", classes:[{name:"1st class", seats:35}, {name:"2nd class", seats:140}, {name:"3rd class", seats:150}]});
-db.trains.insert({name:"Express (B)", location:"matale-line", classes:[{name:"1st class", seats:30}, {name:"2nd class", seats:100}, {name:"3rd class", seats:430}]});
+db.tot_seats.insert({name:"Udarata Menike", location:"MG", classes:[{name:"1st class", seats:30}, {name:"2nd class", seats:100}, {name:"3rd class", seats:150}]});
+db.tot_seats.insert({name:"Podi Menike", location:"MG", classes:[{name:"1st class", seats:20}, {name:"2nd class", seats:100}, {name:"3rd class", seats:200}]});
+db.tot_seats.insert({name:"Tikiri Menike", location:"MG", classes:[{name:"1st class", seats:24}, {name:"2nd class", seats:432}, {name:"3rd class", seats:300}]});
+db.tot_seats.insert({name:"Senkadagala Menike", location:"MG, classes:[{name:"1st class", seats:67}, {name:"2nd class", seats:100}, {name:"3rd class", seats:150}]"});
+db.tot_seats.insert({name:"Colombo - Badulla Night Mail Train", location:"MG", classes:[{name:"1st class", seats:70}, {name:"2nd class", seats:100}, {name:"3rd class", seats:150}]});
+db.tot_seats.insert({name:"Muthu Kumari", location:"Tamil-Nadu", classes:[{name:"1st class", seats:45}, {name:"2nd class", seats:300}, {name:"3rd class", seats:150}]});
+db.tot_seats.insert({name:"Bangadeniya", location:"Tamil-Nadu", classes:[{name:"1st class", seats:65}, {name:"2nd class", seats:100}, {name:"3rd class", seats:150}]});
+db.tot_seats.insert({name:"Express (A)", location:"matale-line", classes:[{name:"1st class", seats:35}, {name:"2nd class", seats:140}, {name:"3rd class", seats:150}]});
+db.tot_seats.insert({name:"Express (B)", location:"matale-line", classes:[{name:"1st class", seats:30}, {name:"2nd class", seats:100}, {name:"3rd class", seats:430}]});
 
 
 

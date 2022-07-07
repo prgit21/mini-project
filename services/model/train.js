@@ -1,18 +1,10 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
 const trainSchema = mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
-    },
-    route: {
-        type: String,
-        required: true,
-    },
-    classes:{
-        type: Array,
-        required: true
-    }
-})
+  name: {
+    type: String,
+    required: true,
+  },
+});
 
-const train = module.exports = mongoose.model('Train', trainSchema)
+const train = (module.exports = mongoose.model("Train", trainSchema));

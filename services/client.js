@@ -1,99 +1,119 @@
-const fetch = require("node-fetch")
-const nodemailer = require('nodemailer')
-const config = require('./config.json')
+const fetch = require("node-fetch");
+const nodemailer = require("nodemailer");
+const config = require("./config.json");
 
-const twilio = require('twilio')(config.messageClient.accountSid, config.messageClient.authToken);
+const twilio = require("twilio")(
+  config.messageClient.accountSid,
+  config.messageClient.authToken
+);
 
 module.exports = {
-    validateNIC: function (nic) {
-        return fetch(config.govAPI + nic)
-            .then(handleErrors)
-            .then(res => res.json())
-            .then(data => {
-                return data.validated
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    },
+  validateNIC: function (nic) {
+    return fetch(config.govAPI + nic)
+      .then(handleErrors)
+      .then((res) => res.json())
+      .then((data) => {
+        return data.validated;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
 
-    sendEmail: async function (body) {
+  sendEmail: async function (body) {
+    const emailConfig = config.emailClient;
 
-        const emailConfig = config.emailClient
+    const transporter = nodemailer.createTransport({
+      host: emailConfig.host,
+      port: 465,
+      secure: true,
+      auth: emailConfig.auth,
+    });
 
-        const transporter = nodemailer.createTransport({
-            host: emailConfig.host,
-            port: 465,
-            secure: true,
-            auth: emailConfig.auth
-        });
+    var mailOptions = {
+      from: '"Sri Lanka Railways"' + emailConfig.email,
+      to: body.email,
+      subject: body.subject,
+      html: body.html,
+    };
 
-        var mailOptions = {
-            from: '"Sri Lanka Railways"' + emailConfig.email,
-            to: body.email,
-            subject: body.subject,
-            html: body.html
-        };
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    });
+  },
+  sendReservationEmail: async function (body) {
+    const emailConfig = config.emailClient;
 
-        transporter.sendMail(mailOptions, function (error, info) {
-            if (error) {
-                console.log(error)
-            } else {
-                console.log('Email sent: ' + info.response);
-            }
-        });
-    },
-    sendReservationEmail: async function (body) {
+    const transporter = nodemailer.createTransport({
+      host: emailConfig.host,
+      port: 465,
+      secure: true,
+      auth: emailConfig.auth,
+    });
 
-        const emailConfig = config.emailClient
+    var mailOptions = {
+      from: '"Sri Lanka Railways"' + emailConfig.email,
+      to: body.email,
+      subject: body.subject,
+      html: body.html,
+      attachments: [
+        {
+          path: body.path,
+          cid: "123",
+        },
+      ],
+    };
 
-        const transporter = nodemailer.createTransport({
-            host: emailConfig.host,
-            port: 465,
-            secure: true,
-            auth: emailConfig.auth
-        });
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    });
+  },
 
-        var mailOptions = {
-            from: '"Sri Lanka Railways"' + emailConfig.email,
-            to: body.email,
-            subject: body.subject,
-            html: body.html,
-            attachments: [
-                {
-                    path: body.path,
-                    cid: '123'
-                }
-            ]
-        };
-
-        transporter.sendMail(mailOptions, function (error, info) {
-            if (error) {
-                console.log(error)
-            } else {
-                console.log('Email sent: ' + info.response);
-            }
-        });
-    },
-
-    sendTextMessage: async function (body) {
-        var to = body.phone
-        if (to.startsWith("0")) {
-            to = to.replace("0", "+94")
-        }
-        twilio.messages
-            .create({
-                body: "Sri Lanka Railway - Reservation Slip \n\n Reference No : " + body.reservationID + " \n\n From " + body.from + " to " + body.to + " \n Date : " + body.date + " \n Time : " + body.time + " \n Train : " + body.train + " \n Class: " + body.trainClass + " \n Quantity : " + body.qty + " \n Total : " + body.total + " LKR",
-                from: config.messageClient.phoneNo,
-                to: to
-            })
-            .then(message => console.log(message.sid))
-            .catch(err => console.log(err))
+  sendTextMessage: async function (body) {
+    var to = body.phone;
+    if (to.startsWith("0")) {
+      to = to.replace("0", "+94");
     }
-}
-handleErrors = response => {
-    if (!response.ok) {
-        throw new Error("Request failed " + response.statusText)
-    }
-    return response
-}
+    twilio.messages
+      .create({
+        body:
+          "Reservation Slip \n\n Reference No : " +
+          body.reservationID +
+          " \n\n From " +
+          body.from +
+          " to " +
+          body.to +
+          " \n Date : " +
+          body.date +
+          " \n Time : " +
+          body.time +
+          " \n Train : " +
+          body.train +
+          " \n Class: " +
+          body.trainClass +
+          " \n Quantity : " +
+          body.qty +
+          " \n Total : " +
+          body.total +
+          " INR",
+        from: config.messageClient.phoneNo,
+        to: to,
+      })
+      .then((message) => console.log(message.sid))
+      .catch((err) => console.log(err));
+  },
+};
+handleErrors = (response) => {
+  if (!response.ok) {
+    throw new Error("Request failed " + response.statusText);
+  }
+  return response;
+};

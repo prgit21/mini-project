@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import {
   routes,
   route,
-  trainsByRoute,
+  //   trainsByRoute,
   classes,
-  schedules,
+  //   schedules,
   getBookedSeatsCount,
 } from "../Services";
 
@@ -20,7 +20,7 @@ class Home extends Component {
       qty: "",
       fromOptions: [],
       toOptions: [],
-      trains: [],
+      //   trains: [],
       errMsg: "Required fields empty or invalid!!!",
       showErr: false,
     };
@@ -75,55 +75,56 @@ class Home extends Component {
         .catch((err) => {
           console.log(err);
         });
-      trainsByRoute(selectedOption.route)
-        .then((res) => {
-          var options = [];
-          res.map((train, i) => {
-            return options.push({
-              value: train.name,
-              label: train.name,
-              id: train._id,
-              classes: train.classes,
-            });
-          });
-          this.setState({ trains: options });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      //   trainsByRoute(selectedOption.route)
+      //     .then((res) => {
+      //       var options = [];
+      //       res.map((train, i) => {
+      //         return options.push({
+      //           value: train.name,
+      //           label: train.name,
+      //           id: train._id,
+      //           classes: train.classes,
+      //         });
+      //       });
+      //       this.setState({ trains: options });
+      //     })
+      //     .catch((err) => {
+      //       console.log(err);
+      //     });
     }
-    if (type === "train") {
-      classes()
-        .then((res) => {
-          var classes = [];
-          res.map((trainClass, i) => {
-            return classes.push({
-              value: trainClass.name,
-              label: trainClass.name,
-              id: trainClass._id,
-              fairRatio: trainClass.fairRatio,
-            });
-          });
-          this.setState({ classes: classes });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      schedules()
-        .then((res) => {
-          var schedules = [];
-          res.map((schedule, i) => {
-            return schedules.push({
-              value: schedule.time,
-              label: schedule.time,
-              id: schedule._id,
-            });
-          });
-          this.setState({ schedules: schedules });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    if (1) {
+      //   classes()
+      //     .then((res) => {
+      //       var classes = [];
+      //       res.map((trainClass, i) => {
+      //         return classes.push({
+      //           value: trainClass.name,
+      //           label: trainClass.name,
+      //           id: trainClass._id,
+      //           fairRatio: trainClass.fairRatio,
+      //         });
+      //       });
+      //       this.setState({ classes: classes });
+      //     })
+      //     .catch((err) => {
+      //       console.log(err);
+      //     });
+      //   schedules()
+      //     .then((res) => {
+      //       console.log("sched");
+      //       var schedules = [];
+      //       res.map((schedule, i) => {
+      //         return schedules.push({
+      //           value: schedule.time,
+      //           label: schedule.time,
+      //           id: schedule._id,
+      //         });
+      //       });
+      //       this.setState({ schedules: schedules });
+      //     })
+      //     .catch((err) => {
+      //       console.log(err);
+      //     });
     }
 
     this.updateAvailableSeats();
@@ -132,21 +133,22 @@ class Home extends Component {
   updateAvailableSeats = () => {
     if (
       this.state.date &&
-      this.state.time &&
-      this.state.trainClass &&
+      //   this.state.time &&
+      //   this.state.trainClass &&
       this.state.trains
     ) {
       const tc = this.state.trains.find(
         (item) => item.value === this.state.train.value
       );
       if (tc && tc.classes) {
-        const seats = tc.classes.find(
-          (item) => item.name === this.state.trainClass.value
-        ).seats;
+        const seats = tc.classes
+          .find
+          //   (item) => item.name === this.state.trainClass.value
+          ().seats;
         const state = this.state;
         getBookedSeatsCount(
           state.train.value,
-          state.trainClass.value,
+          //   state.trainClass.value,
           state.date,
           state.time.value
         )
@@ -181,12 +183,12 @@ class Home extends Component {
     if (
       this.state.to &&
       this.state.from &&
-      this.state.trainClass &&
+      //   this.state.trainClass &&
       this.state.qty
     ) {
       var amount =
         Math.abs(this.state.to.fair - this.state.from.fair) *
-        this.state.trainClass.fairRatio *
+        // this.state.trainClass.fairRatio *
         this.state.qty;
       amount = amount.toFixed(2);
       var discount = (user && user.discount ? 0.1 * amount : 0).toFixed(2);
@@ -204,10 +206,10 @@ class Home extends Component {
       this.props.history.push("/");
     } else if (
       state.from &&
-      state.to &&
-      state.train &&
-      state.trainClass &&
-      state.time &&
+      //   state.to &&
+      //   state.train &&
+      //   state.trainClass &&
+      //   state.time &&
       state.qty &&
       state.qty !== 0 &&
       state.date
@@ -244,7 +246,7 @@ class Home extends Component {
           </Form.Row>
           <Form.Row style={{ width: "75%" }}>
             <Form.Group as={Col} controlId="from">
-              <Form.Label>From</Form.Label>
+              <Form.Label>Museum Location</Form.Label>
               <Select
                 options={this.state.fromOptions}
                 onChange={this.handleChange("from")}
@@ -255,27 +257,27 @@ class Home extends Component {
               <Select
                 options={this.state.toOptions}
                 onChange={this.handleChange("to")}
-                value={this.state.to}
+                v   alue={this.state.to}
               />
             </Form.Group> */}
           </Form.Row>
           <Form.Row style={{ width: "75%" }}>
-            <Form.Group as={Col} controlId="from">
+            {/* <Form.Group as={Col} controlId="from">
               <Form.Label>Train</Form.Label>
               <Select
                 options={this.state.trains}
                 onChange={this.handleChange("train")}
                 value={this.state.train}
               />
-            </Form.Group>
-            <Form.Group as={Col} controlId="to">
+            </Form.Group> */}
+            {/* <Form.Group as={Col} controlId="to">
               <Form.Label>Class</Form.Label>
               <Select
                 options={this.state.classes}
                 onChange={this.handleChange("trainClass")}
                 value={this.state.trainClass}
               />
-            </Form.Group>
+            </Form.Group> */}
           </Form.Row>
           <Form.Row style={{ width: "75%" }}>
             <Col md={6} lg={6} xl={6}>
@@ -288,14 +290,14 @@ class Home extends Component {
                 placeholderText="YYYY-MM-DD"
               />
             </Col>
-            <Form.Group as={Col} controlId="time">
+            {/* <Form.Group as={Col} controlId="time">
               <Form.Label>Time</Form.Label>
               <Select
                 options={this.state.schedules}
                 onChange={this.handleChange("time")}
                 value={this.state.time}
               />
-            </Form.Group>
+            </Form.Group> */}
           </Form.Row>
           <Form.Row style={{ width: "75%", paddingBottom: 20 }}>
             <Col md={6} lg={6} xl={6}>
@@ -333,7 +335,7 @@ class Home extends Component {
                       Amount
                     </td>
                     <td align="right" style={{ border: "1px solid #dee2e6" }}>
-                      {this.state.amount} LKR
+                      {this.state.amount} INR
                     </td>
                   </tr>
                   <tr>
@@ -341,7 +343,7 @@ class Home extends Component {
                       Discount
                     </td>
                     <td align="right" style={{ border: "1px solid #dee2e6" }}>
-                      {this.state.discount} LKR
+                      {this.state.discount} INR
                     </td>
                   </tr>
                   <tr>
@@ -349,7 +351,7 @@ class Home extends Component {
                       Total
                     </td>
                     <td align="right" style={{ border: "1px solid #dee2e6" }}>
-                      {this.state.total} LKR
+                      {this.state.total} INR
                     </td>
                   </tr>
                 </tbody>
