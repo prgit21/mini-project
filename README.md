@@ -32,7 +32,7 @@ As an improvement to the specification document, we have added a social signup f
 ### 2)  Real-time ticket availability
 
 In this application users can provide the reservation details and check the current availability of seats and make the booking. Our application tracks the reservations made before and displays the actual seats available at the time user going to make a reservation.
-When make booking user needs to add start and the destination locations, train, class, time, ticket quantity and the date of booking. Once the data entered the application get the previous bookings for same train’s time and date and subtract by the number of seats that train has.
+When make booking user needs to add start and the destination locations, train, class, time, ticket quantity and the date of booking. Once the data entered the application get the previous bookings for same  time and date and subtract by the number of seats available.
 
 Even if the user doesn’t have an account created for the application, they can view the availability of seats. Once user needs to make the reservation, they need to have an account.
 <p></p><br />
@@ -60,5 +60,5 @@ Therefore, we added direct payment method and pay by cash option. User can selec
 
 As an improvement to the specification, In the user management section, there is a list of users, administrators can disable a particular user from that list. After disabling the user cannot access the account using their credentials. An error message will be displayed to the user. We’ve added this feature because if any passenger misbehaves some way, there should be a way to disable that user from the system. In the specification, there wasn’t a way to disable a user.
   
-As another improvement to the specification administrators can edit passenger account. such as their email. In the user view, users can’t change their email addresses. however, if the special request comes from the passenger, administrators can update the specific passenger’s email address and other details. 
+As another improvement to the specification administrators can edit passenger account. such as their email. In the user view, users can’t change their email addresses. however, if the special request comes from the client, administrators can update the specific passenger’s email address and other details. 
 
