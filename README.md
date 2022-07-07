@@ -28,15 +28,6 @@ Figure 1: component diagram
 ### 1)	Social login
 
 As an improvement to the specification document, we have added a social signup function using google API. As specified in the specification document users need to provide their details to our system using the user interface. Also, In our system we are currently validating the passenger’s email address so that an email will be sent to the passenger’s email. The passenger needs to confirm it first. That is extra work for passengers. So, we have reduced that extra task by adding a social login. Because of that users do not need to manually enter their email, first name, last name, etc. They can easily login through their Google accounts.  
-<p></p><br />
-
-<img src="https://i.ibb.co/SPvBmNJ/google-login.png" alt="Capture7" border="0">
-Figure 2: social login
-<p></p><br />
-
-<img src="https://i.ibb.co/ZhbgGsG/social-login.png" alt="Capture7" border="0">
-Figure 3: social login sequence diagram
-<p></p><br />
 
 ### 2)  Real-time ticket availability
 
@@ -46,18 +37,11 @@ When make booking user needs to add start and the destination locations, train, 
 Even if the user doesn’t have an account created for the application, they can view the availability of seats. Once user needs to make the reservation, they need to have an account.
 <p></p><br />
 
-<img src="https://i.ibb.co/sgKx6W5/ticket-availability.png" alt="Capture7" border="0">
-Figure 4: ticket availability
-<p></p><br />
 
 ### 3) Email and SMS notification
 
 Once user makes a reservation the application will generate a QR code to track the reservation. Then an email will be sent to the user’s email along with reservation details and generated QR code, which will be used to print the ticket at the railway station.
 Also, the system will send a text message to the user’s registered mobile number with the reservation details.
-<p></p><br />
-
-<img src="https://i.ibb.co/9NSTsbw/email.png" alt="Capture7" border="0">
-Figure 5: sample email
 <p></p><br />
 
 ### 4)  Discount for Government officers
@@ -78,107 +62,3 @@ As an improvement to the specification, In the user management section, there is
   
 As another improvement to the specification administrators can edit passenger account. such as their email. In the user view, users can’t change their email addresses. however, if the special request comes from the passenger, administrators can update the specific passenger’s email address and other details. 
 
-#### ii) Admin Management
-
-In the original design there is no function for a manager to add or delete another manager to/from the system. So, by this if the number of managers increases or decreases within the company there would be no way to add a new manager or remove an existing manager from the system.
-
-So as an improvement to the specification, a new function is added for the admin panel which enables an admin to add or remove another admin from the system. Thus, when an admin is newly added to the system, he/she would receive an email to the respective email provided when an admin is registered stating that he/she has been added as an admin to the system and he/she have to login to the system using his/her NC number. After registering one can change the password using the account settings in the admin panel. 
-
-#### iii) Route Management
-
-In the original design they have mention that railway transportation administration should be able to plan timetables so we have provided them an interface to manage different routes using unique route name and assign the stations that should be included in that route with relevant fairs. Following are functionalities available in the route management for railway transportation administration.
-<p></p><br />
-
-<img src="https://i.ibb.co/XyQywN2/create-route.png" alt="Capture7" border="0">
-Figure 6: create route
-<p></p><br />
-<img src="https://i.ibb.co/gZ41nHd/update-route.png" alt="Capture7" border="0">
-Figure 7: update route (eg: add new station)
-<p></p><br />
-<img src="https://i.ibb.co/z66dCRb/delete-route.png" alt="Capture7" border="0">
-Figure 8: delete existing route
-<p></p><br />
-
-#### iv) Train Management
-
-In the original design they haven’t mentioned that railway transportation administration should manage trains through the system but as an added feature we have also created an interface to manage trains using unique train name and assign the seats in the different classes of that train and assign the route in which the train will operate. Following are functionalities available in the Train Management for railway transportation administration.
-
-<img src="https://i.ibb.co/bvjgcwM/add-train.png" alt="Capture7" border="0">
-Figure 9: create train
-<p></p><br />
-<img src="https://i.ibb.co/DbwX4pS/delete-train.png" alt="Capture7" border="0">
-Figure 10: delete route
-<p></p><br />
-
-#### iv) Report Management
-
-In the original design they have mentioned that railway transportation administration should be able to generate reports by processing reservation details. So we have added a feature to generate monthly and yearly reports for revenue generated by each train. After that we have implemented two views as Pie Chart and Bar Chart for the view of reports. Following are functionalities available in the Report Management for railway transportation administration.
-<p></p><br />
-
-<img src="https://i.ibb.co/9yyby27/report-home.png" alt="Capture7" border="0">
-Figure 11: generate yearly or monthly report
-<p></p><br />
-
-<img src="https://i.ibb.co/4TwZj2H/bar-chart.png" alt="Capture7" border="0">
-Figure 12: bar chart view
-<p></p><br />
-
-<img src="https://i.ibb.co/M7BBW5S/pie-chart.png" alt="Capture7" border="0">
-Figure 13: pie chart view
-<p></p><br />
-
-## Known Issues 
-
-### • Antivirus software block the “nodemailer” email service in back-end. 
- 
-If you are getting an error like below, it’s not a fault of the back-end services. It occur because some virus guard applications block “nodemailer” email service. 
-
-```c
-{ Error: self signed certificate in certificate chain        
-    at TLSSocket.<anonymous> (_tls_wrap.js:1105:38)        
-    at emitNone (events.js:106:13)        
-    at TLSSocket.emit (events.js:208:7)        
-    at TLSSocket._finishInit (_tls_wrap.js:639:8)        
-    at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:469:38) code: 'ESOCKET',         
-    command: 'CONN' }
-```
-
-This is a common problem with Avast antivirus, this problem will not occur in ESET and Kaspersky. 
- 
-I have also asked the problem in https://stackoverflow.com. They also suggest to disable the virus guard when running the back-end services. 
- 
-If you are getting some error like this, please disable the virus guard and try again. Anyway, the reservation process will not abort even if the error occurred.
-
-### • “Twilio” free message service will not allow to sent messages to unverified mobile numbers. 
- 
-If you are getting an error like below, it occurs because I’m using Twilio free trial and the entered mobile number should be validated through Twilio dashboard before send messages to that number. If you have paid Twilio account please add account details in back-end “config.json” file.
-
-```c
-{ [Error: The number +94777123456 is unverified. Trial accounts cannot send messages to unverified numbers; verify +94777123456 at twilio.com/user/account/phonenumbers/verified, or purchase a Twilio number to send messages to unverified numbers.]   
-  status: 400,   
-  message: 'The number +94777123456 is unverified. Trial accounts cannot send messages to unverified numbers; verify +94777123456 at twilio.com/user/account/phonenumbers/verified, or purchase a Twilio number to send messages to unverified numbers.',   
-  code: 21608,   
-  moreInfo: 'https://www.twilio.com/docs/errors/21608',   
-  detail: undefined }
-```
-
-## Limitations
-
-1) At the moment we have implemented the solution to the Railways, but we are planning to expand this solution to be available to be used in Buses also.
-
-2) We have an idea of implementing live tracking system for the Railways and Busses so that the Passengers can know exact time the Buses and the trains will arrive at the station which will save the passengers time.
-
-3) At the moment the cash top up solution mention in the specification is not practical to implement.
-
-#### Developed by Team VIKING RAIDERS;
-* Ranmal Dewage
-* Tenusha Guruge
-* Vimukthi Rajapaksha
-* Aravinda Kulasooriya
-
-
-## Copyright
-
-(C) 2019 Ranmal Dewage (ranmal.b.dewage@gmail.com)
-<br>
-[ranmaldewage.wordpress.com](https://ranmaldewage.wordpress.com)
