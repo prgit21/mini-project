@@ -89,27 +89,27 @@ class Payment extends Component {
   createReservation = (paymentMethod) => {
     const state = this.state;
     var user = localStorage.getItem("user");
+    console.log(user);
+    user = JSON.parse(user);
     if (user) {
-      user = JSON.parse(user);
       const reservation = {
-        ...paymentMethod,
         user: user._id,
         email: user.email,
         from: state.from.value,
-        to: state.to.value,
-        train: state.train.value,
+        // to: state.to.value,
+        // train: state.train.value,
         // trainClass: state.trainClass.value,
         // time: state.time.value,
         qty: state.qty,
         date: state.date,
-        amount: state.amount,
-        discount: state.discount,
-        total: state.total,
+        // amount: state.amount,
+        // discount: state.discount,
+        // total: state.total,
         paymentMethod: state.checked,
       };
       makeReservation(reservation)
         .then((res) => {
-          toast.success("Successfully paid " + reservation.total);
+          toast.success("Successfully paid " + 1400);
           this.props.history.push("/reservations");
         })
         .catch((err) => {

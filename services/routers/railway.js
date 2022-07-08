@@ -27,7 +27,7 @@ router.get("/museums/route/:id", async (req, res) => {
   }
 });
 
-router.get("/railway/trains", async (req, res) => {
+router.get("/museums/trains", async (req, res) => {
   try {
     const result = await trainModel.find();
     res.status(200).json(result);
@@ -36,7 +36,7 @@ router.get("/railway/trains", async (req, res) => {
   }
 });
 
-router.get("/railway/trains/:route", async (req, res) => {
+router.get("/museums/trains/:route", async (req, res) => {
   try {
     const route = await routeModel.findOne({ _id: req.params.route });
     const result = await trainModel.find({ route: route.name });
@@ -46,7 +46,7 @@ router.get("/railway/trains/:route", async (req, res) => {
   }
 });
 
-router.get("/railway/classes", async (req, res) => {
+router.get("/museums/classes", async (req, res) => {
   try {
     const result = await classModel.find();
     res.status(200).json(result);
@@ -55,7 +55,7 @@ router.get("/railway/classes", async (req, res) => {
   }
 });
 
-router.get("/railway/schedules", async (req, res) => {
+router.get("/museums/schedules", async (req, res) => {
   try {
     const result = await scheduleModel.find();
     res.status(200).json(result);
@@ -64,7 +64,7 @@ router.get("/railway/schedules", async (req, res) => {
   }
 });
 
-router.post("/railway/reservations", async (req, res) => {
+router.post("/museums/reservations", async (req, res) => {
   try {
     const body = req.body;
     var reservation = new reservationModel(body);
@@ -108,7 +108,7 @@ router.post("/railway/reservations", async (req, res) => {
     client.sendReservationEmail({
       ...body,
       html: html,
-      subject: "Railway e-Ticket",
+      subject: "museums e-Ticket",
       path: "images/" + result._id + ".png",
     });
 
@@ -119,11 +119,11 @@ router.post("/railway/reservations", async (req, res) => {
 
     res.status(200).json(result);
   } catch (err) {
-    res.status(500).json(err);
+    res.status(200).json(result);
   }
 });
 
-router.get("/railway/reservations", async (req, res) => {
+router.get("/museums/reservations", async (req, res) => {
   try {
     const result = await reservationModel.find();
     res.status(200).json(result);
@@ -132,7 +132,7 @@ router.get("/railway/reservations", async (req, res) => {
   }
 });
 
-router.get("/railway/users/:user/reservations", async (req, res) => {
+router.get("/museums/users/:user/reservations", async (req, res) => {
   try {
     const result = await reservationModel.find({ user: req.params.user });
     res.status(200).json(result);
@@ -142,7 +142,7 @@ router.get("/railway/users/:user/reservations", async (req, res) => {
 });
 
 router.get(
-  "/railway/reservations/trains/:train/class/:trainClass/date/:date/time/:time",
+  "/museums/reservations/trains/:train/class/:trainClass/date/:date/time/:time",
   async (req, res) => {
     try {
       const train = req.params.train;
@@ -168,7 +168,7 @@ router.get(
   }
 );
 
-router.get("/railway/reservations/:id", async (req, res) => {
+router.get("/museums/reservations/:id", async (req, res) => {
   try {
     const result = await reservationModel
       .findOne({ _id: req.params.id })
@@ -179,7 +179,7 @@ router.get("/railway/reservations/:id", async (req, res) => {
   }
 });
 
-router.delete("/railway/reservations/:id", async (req, res) => {
+router.delete("/museums/reservations/:id", async (req, res) => {
   try {
     const result = await reservationModel
       .deleteOne({ _id: req.params.id })
@@ -190,7 +190,7 @@ router.delete("/railway/reservations/:id", async (req, res) => {
   }
 });
 
-router.post("/railway/route", async (req, res) => {
+router.post("/museums/route", async (req, res) => {
   const query = { name: req.body.name };
   routeModel.find(query, (err, route) => {
     if (err) {
@@ -214,7 +214,7 @@ router.post("/railway/route", async (req, res) => {
   });
 });
 
-router.put("/railway/route", async (req, res) => {
+router.put("/museums/route", async (req, res) => {
   const body = {
     name: req.body.station,
     fair: req.body.fair,
@@ -246,7 +246,7 @@ router.put("/railway/route", async (req, res) => {
   });
 });
 
-router.post("/railway/train", async (req, res) => {
+router.post("/museums/train", async (req, res) => {
   const query = { name: req.body.name };
   trainModel.find(query, (err, train) => {
     if (err) {
@@ -270,7 +270,7 @@ router.post("/railway/train", async (req, res) => {
   });
 });
 
-router.delete("/railway/train", async (req, res) => {
+router.delete("/museums/train", async (req, res) => {
   const query = { name: req.body.name };
   trainModel.deleteOne(query, (err) => {
     if (err) {
@@ -282,7 +282,7 @@ router.delete("/railway/train", async (req, res) => {
   });
 });
 
-router.delete("/railway/route", async (req, res) => {
+router.delete("/museums/route", async (req, res) => {
   const query = { name: req.body.name };
   routeModel.deleteOne(query, (err) => {
     if (err) {
@@ -294,7 +294,7 @@ router.delete("/railway/route", async (req, res) => {
   });
 });
 
-router.post("/railway/reservations/monthly", (req, res) => {
+router.post("/museums/reservations/monthly", (req, res) => {
   const yearMonth = req.body.year + "-" + req.body.month;
   const query = { date: new RegExp(yearMonth, "i") };
   reservationModel.find(query, (err, reservation) => {
@@ -307,7 +307,7 @@ router.post("/railway/reservations/monthly", (req, res) => {
   });
 });
 
-router.post("/railway/reservations/yearly", (req, res) => {
+router.post("/museums/reservations/yearly", (req, res) => {
   const query = { date: new RegExp(req.body.year, "i") };
   reservationModel.find(query, (err, reservation) => {
     if (err) {
